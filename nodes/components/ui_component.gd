@@ -17,7 +17,13 @@ enum Action {
 var path: String = "" :
 	set(value):
 		path = value
-		key = path.get_file().get_basename()
+		if path.begins_with("uid://"):
+			key = ResourceUID.get_id_path(
+				ResourceUID.text_to_id(path)
+			).get_file().get_basename()
+		else:
+			key = path.get_file().get_basename()
+		
 var key: String = ""
 var on_top: bool = false
 var reversable: bool = false
